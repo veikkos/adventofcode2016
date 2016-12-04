@@ -41,7 +41,7 @@ function walk(pos, dir, distance) {
 }
 
 function getDistance(pos) {
-    return pos.x + pos.y;
+    return Math.abs(pos.x) + Math.abs(pos.y);
 }
 
 function parseInput(input) {
@@ -65,11 +65,38 @@ function play(d, pos, input) {
     return getDistance(pos);
 }
 
+function playUntilSamePlaceTwice(d, pos, input) {
+    var visited = [];
+    var route = parseInput(input);
+    var ret = null;
+    for(let step of route) {
+        d = getDirection(d, step[0]);
+        var dirVector = getDirectionVector(d);
+        for(var i = 0; i < step[1]; i++) {
+            pos = walk(pos, dirVector, 1);
+
+            // toString for "easier" comparison
+            if (visited.indexOf(pos.toString()) >= 0) {
+                ret = pos;
+                break;
+            }
+            visited.push(pos.toString());
+        }
+
+        if (ret) {
+            break;
+        }
+    };
+
+    return getDistance(ret);
+}
+
 module.exports = {
     getDirection,
     getDirectionVector,
     walk,
     getDistance,
     parseInput,
-    play
+    play,
+    playUntilSamePlaceTwice
 };

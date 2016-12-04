@@ -5,7 +5,7 @@ var Victor = require('victor');
 var Promise = require('bluebird');
 var readFile = Promise.promisify(require("fs").readFile);
 
-var one = require('../1');
+var one = require('../aoc');
 
 describe('1', function() {
     it('should return directions', function() {
@@ -91,13 +91,37 @@ describe('1', function() {
     });
 
     it('should complete task', function () {
-        return readFile('1_input.txt', 'utf8')
+        return readFile('aoc_input.txt', 'utf8')
             .then(function(input) {
                 var d = 0;
                 var pos = new Victor(0, 0);
 
                 var end = one.play(d, pos, input);
                 end.should.equal(250);
+            })
+            .catch(function (e) {
+                console.log(e);
+                should(false).equal(true);
+            });
+    });
+});
+
+describe('2', function() {
+    it('should complete example task', function () {
+        var d = 0;
+        var pos = new Victor(0, 0);
+        var input = 'R8, R4, R4, R8';
+
+        one.playUntilSamePlaceTwice(d, pos, input).should.equal(4);
+    });
+
+    it('should complete task', function () {
+        return readFile('aoc_input.txt', 'utf8')
+            .then(function(input) {
+                var d = 0;
+                var pos = new Victor(0, 0);
+
+                one.playUntilSamePlaceTwice(d, pos, input).should.equal(151);
             })
             .catch(function (e) {
                 console.log(e);
