@@ -5,7 +5,7 @@ var Victor = require('victor');
 var Promise = require('bluebird');
 var readFile = Promise.promisify(require("fs").readFile);
 
-var one = require('../aoc');
+var one = require('../1');
 
 describe('1', function() {
     it('should return directions', function() {
@@ -91,7 +91,7 @@ describe('1', function() {
     });
 
     it('should complete task', function () {
-        return readFile('aoc_input.txt', 'utf8')
+        return readFile('1_input.txt', 'utf8')
             .then(function(input) {
                 var d = 0;
                 var pos = new Victor(0, 0);
@@ -116,7 +116,7 @@ describe('2', function() {
     });
 
     it('should complete task', function () {
-        return readFile('aoc_input.txt', 'utf8')
+        return readFile('1_input.txt', 'utf8')
             .then(function(input) {
                 var d = 0;
                 var pos = new Victor(0, 0);
