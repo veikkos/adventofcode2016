@@ -16,14 +16,37 @@ function splitRow(row) {
 }
 
 function parseInput(input) {
-    var rows = input.split('\r\n');
+    var rows = input.trim().split('\r\n');
     return rows.map(function(item) {
         return splitRow(item);
     });
 }
 
+function verticalFlattenInput(input) {
+    var flatA = input.reduce(function(o, row) {
+        return o.concat(row[0]);
+    }, []);
+    var flatB = input.reduce(function(o, row) {
+        return o.concat(row[1]);
+    }, []);
+    var flatC = input.reduce(function(o, row) {
+        return o.concat(row[2]);
+    }, []);
+    return flatA.concat(flatB.concat(flatC));
+}
+
+function splitFlatInput(input) {
+    var out = [];
+    for(var i = 0; i<input.length; i += 3) {
+        out.push([input[i], input[i + 1], input[i + 2]]);
+    }
+    return out;
+}
+
 module.exports = {
     getTriangleCount,
     splitRow,
-    parseInput
+    parseInput,
+    verticalFlattenInput,
+    splitFlatInput
 };

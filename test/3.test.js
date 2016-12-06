@@ -28,12 +28,44 @@ describe('3', function() {
             three.splitRow(s).should.deepEqual([12, 30, 4]);
         });
 
-
         it('should get task done', function() {
             return readFile('3_input.txt', 'utf8')
                 .then(function(input) {
                     var ar = three.parseInput(input);
                     return three.getTriangleCount(ar).should.equal(869);
+                })
+                .catch(function(e) {
+                    console.error(e);
+                    false.should.equal(true);
+                });
+        });
+    });
+
+    describe('b', function() {
+        it('should vertical flatten input', function() {
+            three.verticalFlattenInput([
+                [1, 4, 7],
+                [2, 5, 8],
+                [3, 6, 9]
+            ]).should.deepEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        });
+
+        it('should split flat input', function() {
+            three.splitFlatInput([1, 2, 3, 4, 5, 6, 7, 8, 9])
+                .should.deepEqual([
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9]
+                ]);
+        });
+
+        it('should get task done', function() {
+            return readFile('3_input.txt', 'utf8')
+                .then(function(input) {
+                    var ar = three.splitFlatInput(
+                        three.verticalFlattenInput(
+                            three.parseInput(input)));
+                    return three.getTriangleCount(ar).should.equal(1544);
                 })
                 .catch(function(e) {
                     console.error(e);
