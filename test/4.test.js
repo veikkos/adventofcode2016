@@ -89,4 +89,26 @@ describe('4', function() {
                 });
         });
     });
+
+    describe('b', function() {
+        it('should rotate name', function() {
+            four.rotateName({
+                name : 'qzmt-zixmtkozy-ivhz',
+                id : 343
+            }).should.be.deepEqual({ name : 'very encrypted name', id : 343 });
+        });
+
+        it('should get task done', function() {
+            return readFile('4_input.txt', 'utf8')
+                .then(function(input) {
+                    var location = four.getNorthPoleLocation(input);
+                    location.length.should.be.equal(1);
+                    location[0].id.should.be.equal(993);
+                })
+                .catch(function(e) {
+                    console.error(e);
+                    false.should.equal(true);
+                });
+        });
+    });
 });

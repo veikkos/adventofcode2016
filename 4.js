@@ -12,11 +12,11 @@ function getCharCount(input) {
         chars.push([ch, numberOfChars]);
     }
 
-    return chars.sort(compare);
-}
+    function compare(a, b) {
+        return a[1] === b[1] ? (a[0] > b[0] ? 1 : -1) : b[1] - a[1];
+    }
 
-function compare(a, b) {
-    return a[1] === b[1] ? (a[0] > b[0] ? 1 : -1) : b[1] - a[1];
+    return chars.sort(compare);
 }
 
 function calculateHash(input) {
@@ -66,11 +66,43 @@ function getIdSumFromString(input) {
     return getIdSum(roomObjs);
 }
 
+function getNorthPoleLocation(input) {
+    var rooms = input.trim().split('\r\n');
+    return rooms.map(function(line) {
+        return rotateName(parseLine(line));
+    }).filter(function(obj) {
+        return obj.name === 'northpole object storage';
+    });
+}
+
+function rotateName(obj) {
+    var numOfChars = 'z'.charCodeAt() - 'a'.charCodeAt() + 1,
+        r = obj.id % numOfChars,
+        ar = [];
+
+    for (var i=0; i<obj.name.length; ++i) {
+        var ch = obj.name[i];
+        if (ch !== '-') {
+            var newCode = ch.charCodeAt() + r;
+            if (newCode > 'z'.charCodeAt()) {
+                newCode -= numOfChars;
+            }
+            ar.push(String.fromCharCode.apply(null, [newCode]));
+        } else {
+            ar.push(' ');
+        }
+    }
+
+    return { name : ar.join(''), id : obj.id };
+}
+
 module.exports = {
     getCharCount,
     calculateHash,
     parseLine,
     isRealRoom,
     getIdSum,
-    getIdSumFromString
+    getIdSumFromString,
+    rotateName,
+    getNorthPoleLocation
 };
