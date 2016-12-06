@@ -1,0 +1,4 @@
+*~
+.tern-port
+*.log
+node_modules/*
