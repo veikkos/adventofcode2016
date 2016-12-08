@@ -1,5 +1,7 @@
 'use strict';
 
+var normalize = require('./common').normalizeDelims;
+
 function getCharacter(input, reversed) {
     var charCount = input.reduce(function(ar, ch) {
         return (ar.indexOf(ch) == -1) ? ar.concat(ch) : ar;
@@ -50,7 +52,7 @@ function solveTask(input, reversed) {
 }
 
 function parseAndSolve(input, reversed) {
-    return solveTask(input.trim().split('\r\n'), reversed);
+    return solveTask(normalize(input).trim().split('\n'), reversed);
 };
 
 module.exports = {

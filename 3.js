@@ -1,5 +1,7 @@
 'use strict';
 
+var normalize = require('./common').normalizeDelims;
+
 function getTriangleCount(input) {
     var filttered = input.filter(function(item) {
         return (item[0] + item[1] > item[2]) &&
@@ -16,7 +18,7 @@ function splitRow(row) {
 }
 
 function parseInput(input) {
-    var rows = input.trim().split('\r\n');
+    var rows = normalize(input).trim().split('\n');
     return rows.map(function(item) {
         return splitRow(item);
     });

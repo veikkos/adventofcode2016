@@ -1,5 +1,7 @@
 'use strict';
 
+var normalize = require('./common').normalizeDelims;
+
 function limitA(p) {
     if (p > 2) {
         return 2;
@@ -30,7 +32,7 @@ const customPad = [
 
 function parseInstructions(instructions, pos, custom) {
     var code = '';
-    var lines = instructions.split('\r\n');
+    var lines = normalize(instructions).split('\n');
     lines.forEach(function (line) {
         if(line.length) {
             code += parseLine(pos, line, custom);

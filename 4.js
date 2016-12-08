@@ -1,5 +1,7 @@
 'use strict';
 
+var normalize = require('./common').normalizeDelims;
+
 function getCharCount(input) {
     var word = input.replace(/-/g, '');
     var chars = [];
@@ -58,7 +60,7 @@ function getIdSum(objs) {
 }
 
 function getIdSumFromString(input) {
-    var rooms = input.trim().split('\r\n');
+    var rooms = normalize(input).trim().split('\n');
     var roomObjs = rooms.map(function(line) {
         return parseLine(line);
     });
@@ -67,7 +69,7 @@ function getIdSumFromString(input) {
 }
 
 function getNorthPoleLocation(input) {
-    var rooms = input.trim().split('\r\n');
+    var rooms = normalize(input).trim().split('\n');
     return rooms.map(function(line) {
         return rotateName(parseLine(line));
     }).filter(function(obj) {
