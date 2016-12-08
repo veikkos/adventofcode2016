@@ -6,7 +6,7 @@ var five = require('../5');
 
 describe('5', function() {
     describe('a', function() {
-        this.timeout(60000);
+        this.timeout(0);
 
         it('should solve example', function() {
             five.getDigits('abc').should.be.equal('18f47a30');
@@ -18,7 +18,7 @@ describe('5', function() {
     });
 
     describe('b', function() {
-        this.timeout(120000);
+        this.timeout(0);
 
         it('should solve example', function() {
             five.getAdvancedDigits('abc').should.be.equal('05ace8e3');
