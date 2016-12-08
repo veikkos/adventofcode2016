@@ -2,6 +2,9 @@
     "name": "veikkosAdventOfCode2016",
     "description": "My Advent Of Code 2016 solutions in JavaScript with Node.js",
     "license": "UNLICENSED",
+    "scripts": {
+	"test": "mocha"
+    },
     "repository" : {
         "type" : "git",
         "url" : "https://github.com/veikkos/adventofcode2016.git"

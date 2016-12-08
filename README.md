@@ -16,7 +16,7 @@ Please note that task 5 will take several minutes to complete on slower computer
 
 ```
 $ npm install
-$ ./node_modules/mocha/bin/mocha
+$ npm test
 ```
 
 ## Dependencies ##
