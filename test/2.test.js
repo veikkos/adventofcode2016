@@ -7,6 +7,8 @@ var readFile = Promise.promisify(require("fs").readFile);
 var two = require('../2');
 
 describe('2', function() {
+    const exampleString = 'ULL\r\nRRDDD\r\nLURDL\r\nUUUUD\r\n';
+
     describe('a', function() {
         it('should get digit 1', function() {
             var pos = {
@@ -21,7 +23,7 @@ describe('2', function() {
                 x : 1,
                 y : 1
             };
-            two.parseInstructions('ULL\nRRDDD\nLURDL\nUUUUD\n',
+            two.parseInstructions(exampleString,
                                   pos)
                 .should.be.equal('1985');
         });
@@ -58,7 +60,7 @@ describe('2', function() {
                 x : 0,
                 y : 2
             };
-            two.parseInstructions('ULL\nRRDDD\nLURDL\nUUUUD\n',
+            two.parseInstructions(exampleString,
                                   pos,
                                   true)
                 .should.be.equal('5DB3');

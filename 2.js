@@ -30,7 +30,7 @@ const customPad = [
 
 function parseInstructions(instructions, pos, custom) {
     var code = '';
-    var lines = instructions.split('\n');
+    var lines = instructions.split('\r\n');
     lines.forEach(function (line) {
         if(line.length) {
             code += parseLine(pos, line, custom);
