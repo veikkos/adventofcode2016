@@ -33,3 +33,7 @@ Dependencies are installed automatically when running with instructions above
 * Windows 10
 * Ubuntu 14.04 LTS
 * Raspbian (Debian 7.11)
+
+## Status
+
+[![Build Status](https://travis-ci.org/veikkos/adventofcode2016.svg?branch=master)](https://travis-ci.org/veikkos/adventofcode2016)
