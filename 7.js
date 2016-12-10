@@ -23,7 +23,7 @@ function parseBrackets(input) {
 
 function validateAbba(input) {
     for (var i = 0; i < input.length - 3; ++i) {
-        var abba = input.slice(i, i + 4);
+        const abba = input.slice(i, i + 4);
 
         if (abba[0] === abba[3] && abba[1] === abba[2] &&
             abba[0] !== abba[1]) {
@@ -34,14 +34,53 @@ function validateAbba(input) {
     return false;
 }
 
-function parseStrings(input) {
-    var ar = normalize(input).trim().split('\n');
-    var brackets = ar.map(function(item) {
+function findAbas(input, invert) {
+    var out = [];
+    input.forEach(function(item) {
+        for (var i = 0; i < item.length - 2; ++i) {
+            var aba = item.slice(i, i + 3);
+
+            if (aba[0] === aba[2] && aba[0] !== aba[1]) {
+                invert ? out.push(aba[1] + aba[0] + aba[1]) :
+                    out.push(aba);
+            }
+        }
+    });
+
+    return out;
+}
+
+function parseAbaStrings(input) {
+    const ar = normalize(input).trim().split('\n');
+    const brackets = ar.map(function(item) {
         return parseBrackets(item);
     });
 
     return brackets.reduce(function(ret, item) {
-        var bracketAbbas = item.brackets.filter(function(i) {
+        const abas = findAbas(item.nonBrackets),
+              babs = findAbas(item.brackets, true);
+        var match = false;
+
+        abas.forEach(function(aba) {
+            babs.forEach(function(bab) {
+                if (aba === bab) {
+                    match = true;
+                }
+            });
+        });
+
+        return match ? ret = ret + 1 : ret;
+    }, 0);
+}
+
+function parseStrings(input) {
+    const ar = normalize(input).trim().split('\n');
+    const brackets = ar.map(function(item) {
+        return parseBrackets(item);
+    });
+
+    return brackets.reduce(function(ret, item) {
+        const bracketAbbas = item.brackets.filter(function(i) {
             return validateAbba(i);
         });
 
@@ -49,7 +88,7 @@ function parseStrings(input) {
             return ret;
         }
 
-        var nonBracketAbbas = item.nonBrackets.filter(function(i) {
+        const nonBracketAbbas = item.nonBrackets.filter(function(i) {
             return validateAbba(i);
         });
 
@@ -60,5 +99,7 @@ function parseStrings(input) {
 module.exports = {
     parseBrackets,
     validateAbba,
-    parseStrings
+    parseStrings,
+    findAbas,
+    parseAbaStrings
 };

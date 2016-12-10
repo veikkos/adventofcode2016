@@ -40,4 +40,33 @@ describe('7', function() {
                 });
         });
     });
+
+    describe('b', function() {
+        const exampleString = 'aba[bab]xyz\r\n' +
+              'xyx[xyx]xyx\r\n' +
+              'aaa[kek]eke\r\n' +
+              'zazbz[bzb]cdb\r\n';
+
+        it('should find ABAs', function () {
+            sut.findAbas(['fdrdghrtftwe', 'gfdfaaa'])
+                .should.deepEqual(['drd', 'tft', 'fdf']);
+        });
+
+        it('should find BABs', function () {
+            sut.findAbas(['fdrdghrtftwe', 'gfdfaaa'], true)
+                .should.deepEqual(['rdr', 'ftf', 'dfd']);
+        });
+
+        it('should solve example', function () {
+            sut.parseAbaStrings(exampleString)
+                .should.equal(3);
+        });
+
+        it('should complete task', function() {
+            return readFile('7_input.txt', 'utf8')
+                .then(function(input) {
+                    sut.parseAbaStrings(input).should.be.equal(231);
+                });
+        });
+    });
 });
